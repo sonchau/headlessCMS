@@ -1,4 +1,6 @@
 import {buildQueryUrl} from './common'
+
+
 export const getAllClients = () => {
     //get all client from heroku
     return [
@@ -24,3 +26,4 @@ export const getClientData = (client: string) => {
     const data = buildQueryUrl(client)
     return data
 }
+

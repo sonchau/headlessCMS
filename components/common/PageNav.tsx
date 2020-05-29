@@ -1,10 +1,25 @@
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined, MailOutlined, AppstoreOutlined, SettingOutlined} from '@ant-design/icons';
-import Link from 'next/link'
-
+import Link from 'next/link';
+import { GraphQLClient } from 'graphql-request';
 const { SubMenu } = Menu;
+import { GetStaticProps, GetStaticPaths } from 'next'
 
-const PageNav = () => {
+
+// export const getStaticProps: GetStaticProps = async () => {
+//   const allPostsData = getSortedPostsData()
+//   return {
+//     props: {
+//       allPostsData
+//     }
+//   }
+// }
+
+
+
+
+const PageNav = ({navs}) => {
+    console.log('navs 111', navs)
     function handleClick(e) {
       console.log('click', e);
     }
@@ -47,4 +62,30 @@ const PageNav = () => {
     )
 }
 
+export const getStaticProps: GetStaticProps = async () => {
+  console.log('start 11')
+  const graphcms = new GraphQLClient(
+    'https://api-ap-northeast-1.graphcms.com/v2/ckaolt0ej0mfr01z1993obz3m/master'
+  );
+
+  const { navs } = await graphcms.request(
+    `
+    navs {
+      title
+      link
+      parent
+      extend
+    }
+    `
+  );
+
+  const response =  {
+    props: {
+      navs,
+    },
+  };
+  console.log('response', response)
+ 
+  return response
+}
 export default PageNav

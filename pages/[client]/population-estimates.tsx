@@ -4,6 +4,7 @@ import Layout, { siteTitle } from '../../components/layout'
 import Link from 'next/link'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { getAllClients, getClientData } from '../../lib/client'
+import {getMovies} from '../../lib/navs'
 
 export default function Client({
   allPostsData
@@ -27,6 +28,7 @@ export default function Client({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  console.log('getMovies', getMovies())
     const paths = getAllClients()
     return {
       paths,
